@@ -1,0 +1,32 @@
+C51 COMPILER V9.59.0.0   BSP_TEST                                                          11/27/2018 13:28:58 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE BSP_TEST
+OBJECT MODULE PLACED IN .\Objects\bsp_test.obj
+COMPILER INVOKED BY: E:\MDK\C51\BIN\C51.EXE ..\bsp\bsp_test.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\bsp\key;..\bsp;..\lib;.
+                    -.\TimeOut;..\user) DEBUG OBJECTEXTEND PRINT(.\Listings\bsp_test.lst) OBJECT(.\Objects\bsp_test.obj)
+
+line level    source
+
+   1          #include "bsp_test.h"
+   2          
+   3          
+   4          void Test_Init(void)
+   5          {
+   6   1          P1CON &= ~0X01;
+   7   1          P1PH  |= 0X01;     //P10ÎªÈí¼þÇÐ»»GPIO
+   8   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      7    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

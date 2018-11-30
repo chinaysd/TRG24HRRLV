@@ -1,0 +1,308 @@
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          11/30/2018 15:21:35 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE BSP_USRT
+OBJECT MODULE PLACED IN .\Objects\bsp_usrt.obj
+COMPILER INVOKED BY: E:\MDK\C51\BIN\C51.EXE ..\bsp\bsp_usrt.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\bsp\key;..\bsp;..\lib;.
+                    -.\TimeOut;..\user) DEBUG OBJECTEXTEND PRINT(.\Listings\bsp_usrt.lst) OBJECT(.\Objects\bsp_usrt.obj)
+
+line level    source
+
+   1          #include "bsp_uart.h"
+   2          #include "bsp_led.h"
+   3          #include "system.h"
+   4          
+   5          unsigned char UartSendFlag,UartReceiveFlag;
+   6          
+   7          /*****************************************接收数据变量定义**********************************************/
+   8          unsigned char Res,Rev_Num,Rev_Sum,Rev_String[REV_BUF_SIZE];
+   9          unsigned int Temp;
+  10          /*****************************************发送数据的全局变量*******************************************/
+  11          extern unsigned char Data;
+  12          extern unsigned char App_Flag;
+  13          /******************************************************************************************************/
+  14          
+  15          /************************发热布变量定义*************************************/
+  16          extern unsigned char Heat_Flag;
+  17          extern unsigned int  Heat_Cnt;
+  18          extern unsigned char Heat_Cnt30Min_Flag;
+  19          extern unsigned int  Heat_Cnt30Min;
+  20          extern unsigned int  App_Heat_Cnt1s;
+  21          /***************************************************************************/
+  22          
+  23          /************************马达变量定义***************************************/
+  24          extern unsigned char Mass_Flag;
+  25          extern unsigned int  Mass_Cnt;
+  26          extern unsigned char Mass_Cnt30Min_Flag;
+  27          extern unsigned int  Mass_Cnt30Min;
+  28          extern unsigned int  App_Mass_Cnt1s;
+  29          /***************************************************************************/
+  30          
+  31          
+  32          void Uart_Init(unsigned int Baud)
+  33          {
+  34   1          SCON=0x50;
+  35   1              PCON|=0x80;
+  36   1              T2CON&=~0x30;
+  37   1              TMCON|=0x02;
+  38   1              TMOD&=0x0f;
+  39   1              TMOD|=0x20;
+  40   1              TH1=256 - Freq/Baud/16/2*2;
+  41   1              TR1=0;
+  42   1              TR1=1;
+  43   1              EUART=1; 
+  44   1      }
+  45          
+  46          void Send_Byte(unsigned char TX_BUF)
+  47          {
+  48   1          SBUF = TX_BUF;
+  49   1          while(!UartSendFlag);
+  50   1          UartSendFlag = 0;
+  51   1      }
+  52          
+  53          unsigned char Send_Data(PROTOCOL_TX *p)
+  54          {
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          11/30/2018 15:21:35 PAGE 2   
+
+  55   1          static unsigned char i;
+  56   1          for(i = 0; i < BUF_SIZE; i ++)
+  57   1          {
+  58   2             Send_Byte(p->Buf[i]);
+  59   2          }
+  60   1          return 0;
+  61   1      }
+  62          
+  63          unsigned char Protocol_Send(unsigned char addr,unsigned char id,unsigned char TX_DATA)
+  64          {
+  65   1          PROTOCOL_TX buf;
+  66   1          memset(&buf,0,sizeof(buf));
+  67   1          buf.Buf_Para.ADDR = addr;
+  68   1          buf.Buf_Para.ID   = id;
+  69   1          buf.Buf_Para.DATA = TX_DATA;
+  70   1          buf.Buf_Para.CHECKSUM = (unsigned char)(buf.Buf_Para.ADDR + buf.Buf_Para.ID + buf.Buf_Para.DATA);
+  71   1          return Send_Data(&buf);
+  72   1      }
+  73          
+  74          /*****************************************************接收子函数******************************************
+             -/
+  75          
+  76          unsigned char Rev_Data(void)
+  77          {
+  78   1          static unsigned char SSDAT;
+  79   1          while(!UartReceiveFlag);
+  80   1          UartReceiveFlag = 0;
+  81   1          SSDAT = SBUF;
+  82   1          return SSDAT;
+  83   1      }
+  84          
+  85          unsigned char IF_Rev_Data(void)
+  86          {
+  87   1          if(Rev_Num & 0x80)
+  88   1          {
+  89   2             Rev_Num &= 0x00;
+  90   2             return 1;        
+  91   2          }
+  92   1          else 
+  93   1          {
+  94   2              return 0;
+  95   2          }
+  96   1      }
+  97          
+  98          void Serial_Rev_Data(void)
+  99          {
+ 100   1          Res = Rev_Data();
+ 101   1          if((Rev_Num & 0x80) == 0)
+ 102   1          {
+ 103   2              if(Rev_Num & 0x40)
+ 104   2              {
+ 105   3                  if(Res == 0xfb)
+ 106   3                  {
+ 107   4                     Rev_Num |= 0x80; 
+ 108   4                  }
+ 109   3                  else 
+ 110   3                  {
+ 111   4                     Rev_Num &= 0x00; 
+ 112   4                  }
+ 113   3              }
+ 114   2              else 
+ 115   2              {
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          11/30/2018 15:21:35 PAGE 3   
+
+ 116   3                  if(Rev_Num == 5)
+ 117   3                  {
+ 118   4                      if(Res == Rev_Sum)
+ 119   4                      {
+ 120   5                         Rev_Num |= 0x40; 
+ 121   5                      }
+ 122   4                      else
+ 123   4                      {
+ 124   5                         Rev_Num &= 0x00;  
+ 125   5                      }
+ 126   4                  }
+ 127   3                  else
+ 128   3                  {
+ 129   4                      Rev_String[Rev_Num] = Res;
+ 130   4                      Rev_Num ++;
+ 131   4                      Rev_Sum = (unsigned char)(Rev_String[0]+Rev_String[1]+Rev_String[2]+Rev_String[3]+Rev_Stri
+             -ng[4]);
+ 132   4                      if(Rev_String[0] != 0xA5)
+ 133   4                      {
+ 134   5                         Rev_Num &= 0X00; 
+ 135   5                      }
+ 136   4                  }
+ 137   3              }
+ 138   2          }
+ 139   1      }
+ 140          
+ 141          void Rev_Data_Handle(void)
+ 142          {
+ 143   1          if(IF_Rev_Data())
+ 144   1          {
+ 145   2              Temp = (unsigned int)Get_32Bit(Rev_String[3],Rev_String[4]);
+ 146   2              memset(&Rev_String,0,sizeof(Rev_String));
+ 147   2              switch (Temp)
+ 148   2              {
+ 149   3                  case COCO_Stop:                         //停止
+ 150   3                                    Data = STOP;
+ 151   3                                    App_Flag = 1;
+ 152   3                                    break;         
+ 153   3                  case COCO_Recline:                        //座椅打开
+ 154   3                                    Data = OPEN;
+ 155   3                                    App_Flag = 1;
+ 156   3                                    break;
+ 157   3                  case COCO_Close:                         //座椅收回
+ 158   3                                    Data = CLOSE;
+ 159   3                                    App_Flag = 1;
+ 160   3                                    break;
+ 161   3                  case COCO_Head_Up:                       //头枕打开
+ 162   3                                    Data = HEAD_UP;
+ 163   3                                    App_Flag = 1;
+ 164   3                                    break;
+ 165   3                  case COCO_Head_Down:                     //头枕收回
+ 166   3                                    Data = HEAD_DOWN;
+ 167   3                                    App_Flag = 1;
+ 168   3                                    break;
+ 169   3                  case COCO_Lumbar_Up:                     //腰部打开
+ 170   3                                    Data = LARBUM_UP;
+ 171   3                                    App_Flag = 1;            
+ 172   3                                    break;
+ 173   3                  case COCO_Lumbar_Down:                   //腰部收回
+ 174   3                                    Data = LARBUM_DOWN; 
+ 175   3                                    App_Flag = 1;
+ 176   3                                    break;
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          11/30/2018 15:21:35 PAGE 4   
+
+ 177   3                  case COCO_Home_Position:                 //复位
+ 178   3                                    Data = HOME_POSITION; 
+ 179   3                                    App_Flag = 1;
+ 180   3                                    break;
+ 181   3                  case COCO_Sleep_Position:                //睡眠位置
+ 182   3                                    Data = SLEEP_POSITION; 
+ 183   3                                    App_Flag = 1;
+ 184   3                                    break;
+ 185   3                  case COCO_TV_Position:                   //看电视位置
+ 186   3                                    Data = WATCH_TV_POSITION; 
+ 187   3                                    App_Flag = 1;
+ 188   3                                    break;
+ 189   3                  case COCO_Reading_Position:              //阅读位置 
+ 190   3                                    Data = READING_POSITION;
+ 191   3                                    App_Flag = 1;
+ 192   3                                    break;
+ 193   3                  case COCO_Set_Sleep_Position:            //设置睡眠位置
+ 194   3                                    Data = SET_SLEEP_POSITION;
+ 195   3                                    App_Flag = 1;
+ 196   3                                    break;
+ 197   3                  case COCO_Set_TV_Position:               //设置看电视位置
+ 198   3                                    Data = SET_WATCH_TV_POSITION;
+ 199   3                                    App_Flag = 1;
+ 200   3                                    break;
+ 201   3                  case COCO_Set_Reading_Position:          //设置阅读位置
+ 202   3                                    Data = SET_READING_POSITION;
+ 203   3                                    App_Flag = 1;
+ 204   3                                    break;
+ 205   3                  case COCO_Light_On:                      //打开脚灯
+ 206   3                                    Data = FOOT_LIGHT_OPEN;
+ 207   3                                    App_Flag = 1;
+ 208   3                                    break;
+ 209   3                  case COCO_Light_Off:                     //关闭脚灯
+ 210   3                                    Data = FOOT_LIGHT_CLOSE;
+ 211   3                                    App_Flag = 1;
+ 212   3                                    break;
+ 213   3                  case COCO_Heat_On:                       //发热布加热
+ 214   3                                    App_Heat_Cnt1s = 0; 
+ 215   3                                    Heat_Cnt30Min  = 0;
+ 216   3                                    Heat_Cnt30Min_Flag = True;
+ 217   3                                    Data = HEAT_ON;
+ 218   3                                    LED2_SET(1);
+ 219   3                                    App_Flag = 1;
+ 220   3                                    Heat_Cnt = 1;
+ 221   3                                    break;
+ 222   3                  case COCO_Heat_Off:                      //发热布关闭
+ 223   3                                    Heat_Cnt30Min_Flag = False;
+ 224   3                                    Data = HEAT_OFF;
+ 225   3                                    LED2_SET(0);
+ 226   3                                    App_Flag = 1;
+ 227   3                                    Heat_Cnt = 1;
+ 228   3                                    break;
+ 229   3                  case COCO_Massage_Start:                 //马达开启
+ 230   3                                    App_Mass_Cnt1s = 0; 
+ 231   3                                    Mass_Cnt30Min  = 0;
+ 232   3                                    Mass_Cnt30Min_Flag = True;
+ 233   3                                    Data = MASS_OPEN;
+ 234   3                                    LED1_SET(1);
+ 235   3                                    App_Flag = 1;
+ 236   3                                    Mass_Cnt = 1;
+ 237   3                                    break;
+ 238   3                  case COCO_Massage_Stop:                  //马达关闭
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          11/30/2018 15:21:35 PAGE 5   
+
+ 239   3                                    Mass_Cnt30Min_Flag = False;
+ 240   3                                    Data = MASS_CLOSE;
+ 241   3                                    LED1_SET(0);
+ 242   3                                    App_Flag = 1;
+ 243   3                                    Mass_Cnt = 1;
+ 244   3                                    break;
+ 245   3                  default:
+ 246   3                                    App_Flag = 0;
+ 247   3                                    Data = STOP;
+ 248   3                                    break;
+ 249   3              }  
+ 250   2          }
+ 251   1          
+ 252   1      }
+ 253          
+ 254          /*****************************************************
+ 255          *函数名称：void UartInt(void) interrupt 4
+ 256          *函数功能：Uart0中断函数
+ 257          *入口参数：void
+ 258          *出口参数：void
+ 259          *****************************************************/
+ 260          void UartInt(void) interrupt 4
+ 261          {
+ 262   1              if(TI)
+ 263   1              {
+ 264   2                      TI = 0; 
+ 265   2                      UartSendFlag = 1;               
+ 266   2              }
+ 267   1              if(RI)
+ 268   1              {
+ 269   2                      RI = 0; 
+ 270   2                      UartReceiveFlag = 1;
+ 271   2                      Serial_Rev_Data();      
+ 272   2              }
+ 273   1        
+ 274   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    600    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,12 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\system.obj",
+".\Objects\bsp_led.obj",
+".\Objects\bsp_timer.obj",
+".\Objects\bsp_usrt.obj",
+".\Objects\key.obj",
+".\Objects\key_port.obj",
+".\Objects\bsp_test.obj",
+".\Objects\TimeOut.obj" 
+TO ".\Objects\TRG24HRRLV" 
+PRINT(".\Listings\TRG24HRRLV.m51") RAMSIZE(256) 
