@@ -11,7 +11,7 @@
 #define 	KEY_SCAN_TIME			160				//	20ms		
 #define 	KEY_JITTER_TIME			160				// 	20ms
 #define 	KEY_CP_TIME				160				//	ms
-#define 	KEY_CPH_TIME			160//2000				//  200ms	³¤°´±£³Ö´¥·¢Ê±¼
+#define 	KEY_CPH_TIME			2000				//  200ms	³¤°´±£³Ö´¥·¢Ê±¼
 
 /**
 	@function:msg

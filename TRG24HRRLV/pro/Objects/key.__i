@@ -1,1 +1,0 @@
-"..\bsp\key\key.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(..\bsp\key;..\bsp;..\lib;..\TimeOut;..\user) DEBUG OBJECTEXTEND PRINT(.\Listings\key.lst) OBJECT(.\Objects\key.obj)

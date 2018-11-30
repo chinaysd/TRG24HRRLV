@@ -1,1 +1,0 @@
-"..\bsp\bsp_usrt.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(..\bsp\key;..\bsp;..\lib;..\TimeOut;..\user) DEBUG OBJECTEXTEND PRINT(.\Listings\bsp_usrt.lst) OBJECT(.\Objects\bsp_usrt.obj)

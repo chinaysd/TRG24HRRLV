@@ -211,36 +211,86 @@ void Rev_Data_Handle(void)
                               App_Flag = 1;
                               break;
             case COCO_Heat_On:                       //发热布加热
-                              App_Heat_Cnt1s = 0; 
-                              Heat_Cnt30Min  = 0;
-                              Heat_Cnt30Min_Flag = True;
-                              Data = HEAT_ON;
-                              LED2_SET(1);
-                              App_Flag = 1;
-                              Heat_Cnt = 1;
+                              if(TEST_PIN == 1)
+                              {
+                                  App_Heat_Cnt1s = 0; 
+                                  Heat_Cnt30Min  = 0;
+                                  Heat_Cnt30Min_Flag = True;
+                                  Data = HEAT_ON;
+                                  LED2_SET(1);
+                                  App_Flag = 1;
+                                  Heat_Cnt = 1;
+                              }
+                              else
+                              {
+                                  App_Heat_Cnt1s = 0; 
+                                  Heat_Cnt30Min  = 0;
+                                  Heat_Cnt30Min_Flag = True;
+                                  Data = HEAT_ON;
+                                  LED1_SET(1);
+                                  App_Flag = 1;
+                                  Heat_Cnt = 1;
+                              }
                               break;
             case COCO_Heat_Off:                      //发热布关闭
-                              Heat_Cnt30Min_Flag = False;
-                              Data = HEAT_OFF;
-                              LED2_SET(0);
-                              App_Flag = 1;
-                              Heat_Cnt = 1;
+                              if(TEST_PIN == 1)
+                              {
+                                 Heat_Cnt30Min_Flag = False;
+                                 Data = HEAT_OFF;
+                                 LED2_SET(0);
+                                 App_Flag = 1;
+                                 Heat_Cnt = 1; 
+                              }
+                              else
+                              {
+                                 Heat_Cnt30Min_Flag = False;
+                                 Data = HEAT_OFF;
+                                 LED1_SET(0);
+                                 App_Flag = 1;
+                                 Heat_Cnt = 1;
+                              }
                               break;
             case COCO_Massage_Start:                 //马达开启
-                              App_Mass_Cnt1s = 0; 
-                              Mass_Cnt30Min  = 0;
-                              Mass_Cnt30Min_Flag = True;
-                              Data = MASS_OPEN;
-                              LED1_SET(1);
-                              App_Flag = 1;
-                              Mass_Cnt = 1;
+                              if(TEST_PIN == 1)
+                              {
+                                 App_Mass_Cnt1s = 0; 
+                                 Mass_Cnt30Min  = 0;
+                                 Mass_Cnt30Min_Flag = True;
+                                 Data = MASS_OPEN;
+                                 LED1_SET(1);
+                                 App_Flag = 1;
+                                 Mass_Cnt = 1;
+                              }
+                              else
+                              {
+                                 App_Mass_Cnt1s = 0; 
+                                 Mass_Cnt30Min  = 0;
+                                 Mass_Cnt30Min_Flag = True;
+                                 Data = MASS_OPEN;
+                                 LED2_SET(1);
+                                 App_Flag = 1;
+                                 Mass_Cnt = 1; 
+                              }
+                              
                               break;
             case COCO_Massage_Stop:                  //马达关闭
-                              Mass_Cnt30Min_Flag = False;
-                              Data = MASS_CLOSE;
-                              LED1_SET(0);
-                              App_Flag = 1;
-                              Mass_Cnt = 1;
+                              if(TEST_PIN == 1)
+                              {
+                                 Mass_Cnt30Min_Flag = False;
+                                 Data = MASS_CLOSE;
+                                 LED1_SET(0);
+                                 App_Flag = 1;
+                                 Mass_Cnt = 1; 
+                              }
+                              else
+                              {
+                                 Mass_Cnt30Min_Flag = False;
+                                 Data = MASS_CLOSE;
+                                 LED2_SET(0);
+                                 App_Flag = 1;
+                                 Mass_Cnt = 1;   
+                              }
+                              
                               break;
             default:
                               App_Flag = 0;

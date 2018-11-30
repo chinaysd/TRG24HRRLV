@@ -69,7 +69,7 @@ void Key_Handle(unsigned char Get_Key)
         }
         else if(Get_Key == MSG_KEY6_PRESS)//K2
         {
-            #if 0
+           
             if(!Mass_Flag)
             {
                App_Flag  = 1;
@@ -90,7 +90,7 @@ void Key_Handle(unsigned char Get_Key)
                   LED1_SET(0);                
                }               
             } 
-            #endif 
+             #if 0
             if(!Foot_Led_Flag)
             {
                App_Flag  = 1;
@@ -104,7 +104,8 @@ void Key_Handle(unsigned char Get_Key)
                {
                   Data = FOOT_LIGHT_CLOSE; 
                }
-            }            
+            } 
+            #endif             
         }
         else if(Get_Key == MSG_KEY7_PRESS)//K3
         {
@@ -129,7 +130,7 @@ void Key_Handle(unsigned char Get_Key)
                }
            }            
         }
-        #if 0
+        #if 1
         else if(Get_Key == MSG_KEY5_SHORT_PRESS)
         {
             if(!Foot_Led_Flag)
@@ -168,37 +169,89 @@ void Key_Handle(unsigned char Get_Key)
         else if(Get_Key == MSG_KEY1_LONGPRESS)//K7
         {
            App_Flag  = 0;
-           Data = HEAD_UP;        
+           Data = HEAD_DOWN;        
         }
         else if(Get_Key == MSG_KEY2_LONGPRESS)//K5
         {
            App_Flag  = 0;
-           Data = HEAD_DOWN;     
+           Data = HEAD_UP;     
         }
         else if(Get_Key == MSG_KEY3_LONGPRESS)//K4
         {
            App_Flag  = 0;
-           Data = CLOSE;         
+           Data = OPEN;         
         }
         else if(Get_Key == MSG_KEY4_LONGPRESS)//K6
         {
            App_Flag  = 0;
-           Data = OPEN;               
+           Data = CLOSE;               
         }
         else if(Get_Key == MSG_KEY5_LONGPRESS_HD)//K1
         {
            App_Flag  = 0;
            Data = HOME_POSITION;         
         }
-        else if(Get_Key == MSG_KEY6_LONGPRESS)//K2
+        else if(Get_Key == MSG_KEY6_PRESS)//K2
         {
-           App_Flag  = 0;
-           Data = LARBUM_UP;                    
+           if(!Heat_Flag)
+           {
+               App_Flag  = 1;
+               Heat_Flag = 1;
+               ++ Heat_Cnt;
+               if(Heat_Cnt & 0x01)
+               {
+                 App_Heat_Cnt1s = 0; 
+                 Heat_Cnt30Min  = 0;
+                 Heat_Cnt30Min_Flag = True;
+                 Data = HEAT_ON;
+                 LED1_SET(1);               
+               }
+               else
+               {
+                 Heat_Cnt30Min_Flag = False;  
+                 Data = HEAT_OFF;
+                 LED1_SET(0); 
+               }
+           }             
         }
-        else if(Get_Key == MSG_KEY7_LONGPRESS)//K3
+        else if(Get_Key == MSG_KEY7_PRESS)//K3
         {
-           App_Flag  = 0;
-           Data = LARBUM_DOWN;  
+           if(!Mass_Flag)
+            {
+               App_Flag  = 1;
+               Mass_Flag = 1;
+               ++ Mass_Cnt;
+               if(Mass_Cnt & 0x01)
+               {
+                  Mass_Cnt30Min_Flag = True;
+                  Mass_Cnt30Min = 0;          //计数清0
+                  App_Mass_Cnt1s = 0;         //计数清0
+                  Data = MASS_OPEN; 
+                  LED2_SET(0);                  
+               }   
+               else
+               {
+                  Mass_Cnt30Min_Flag = False;
+                  Data = MASS_CLOSE;  
+                  LED2_SET(0);                
+               }               
+            } 
+             #if 0
+            if(!Foot_Led_Flag)
+            {
+               App_Flag  = 1;
+               Foot_Led_Flag = 1;
+               ++ Foot_Led_Cnt;
+               if(Foot_Led_Cnt & 0x01)
+               {
+                  Data = FOOT_LIGHT_OPEN; 
+               }
+               else 
+               {
+                  Data = FOOT_LIGHT_CLOSE; 
+               }
+            } 
+            #endif            
         }
         else if(Get_Key == MSG_KEY5_SHORT_PRESS)
         {
