@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   SYSTEM                                                            11/30/2018 16:54:41 PAGE 1   
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/03/2018 16:06:48 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE SYSTEM
@@ -62,7 +62,7 @@ line level    source
   49   3              }
   50   2              else if(Get_Key == MSG_KEY2_LONGPRESS)//K5
   51   2              {
-C51 COMPILER V9.59.0.0   SYSTEM                                                            11/30/2018 16:54:41 PAGE 2   
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/03/2018 16:06:48 PAGE 2   
 
   52   3                 App_Flag  = 0;
   53   3                 Data = HEAD_DOWN;     
@@ -126,7 +126,7 @@ line level    source
  111   2              {
  112   3                 if(!Heat_Flag)
  113   3                 {
-C51 COMPILER V9.59.0.0   SYSTEM                                                            11/30/2018 16:54:41 PAGE 3   
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/03/2018 16:06:48 PAGE 3   
 
  114   4                     App_Flag  = 1;
  115   4                     Heat_Flag = 1;
@@ -190,7 +190,7 @@ line level    source
  170   2              {
  171   3                 App_Flag  = 0;
  172   3                 Data = HEAD_DOWN;        
-C51 COMPILER V9.59.0.0   SYSTEM                                                            11/30/2018 16:54:41 PAGE 4   
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/03/2018 16:06:48 PAGE 4   
 
  173   3              }
  174   2              else if(Get_Key == MSG_KEY2_LONGPRESS)//K5
@@ -254,7 +254,7 @@ line level    source
  232   4                     else
  233   4                     {
  234   5                        Mass_Cnt30Min_Flag = False;
-C51 COMPILER V9.59.0.0   SYSTEM                                                            11/30/2018 16:54:41 PAGE 5   
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/03/2018 16:06:48 PAGE 5   
 
  235   5                        Data = MASS_CLOSE;  
  236   5                        LED2_SET(0);                
@@ -318,7 +318,7 @@ line level    source
  294   1         if(TimeOutDet_Check(&TimeOut_Para[0]))
  295   1         {
  296   2            TimeOut_Record(&TimeOut_Para[0],OnLine_Time); 
-C51 COMPILER V9.59.0.0   SYSTEM                                                            11/30/2018 16:54:41 PAGE 6   
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/03/2018 16:06:48 PAGE 6   
 
  297   2            Protocol_Send(SEND_ADDR,SEND_ID,Data);         
  298   2         }
@@ -348,7 +348,7 @@ line level    source
  322   2           App_Mass_Cnt1s = 0;
  323   2           Mass_Cnt30Min ++;      
  324   2        }
- 325   1        if(Mass_Cnt30Min > 1800)
+ 325   1        if(Mass_Cnt30Min > 3600)
  326   1        {
  327   2           Mass_Cnt30Min = 0; 
  328   2           App_Mass_Cnt1s = 0;     
@@ -367,7 +367,7 @@ line level    source
  341   2           App_Heat_Cnt1s = 0; 
  342   2           Heat_Cnt30Min ++;
  343   2        }
- 344   1        if(Heat_Cnt30Min > 1800)
+ 344   1        if(Heat_Cnt30Min > 3600)
  345   1        {
  346   2           App_Heat_Cnt1s = 0; 
  347   2           Heat_Cnt30Min  = 0;
@@ -382,7 +382,7 @@ line level    source
  356          void timer1() interrupt 3
  357          {
  358   1      
-C51 COMPILER V9.59.0.0   SYSTEM                                                            11/30/2018 16:54:41 PAGE 7   
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/03/2018 16:06:48 PAGE 7   
 
  359   1      }
  360          

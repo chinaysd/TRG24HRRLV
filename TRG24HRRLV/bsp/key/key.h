@@ -8,9 +8,9 @@
 	@function: °´¼üÉ¨ÃèµÄÊ±¼ä¶¨Òå
 	@brief: Ê±»ù125us
 */
-#define 	KEY_SCAN_TIME			160				//	20ms		
-#define 	KEY_JITTER_TIME			160				// 	20ms
-#define 	KEY_CP_TIME				160				//	ms
+#define 	KEY_SCAN_TIME			20//160				//	20ms		
+#define 	KEY_JITTER_TIME			20//160				// 	20ms
+#define 	KEY_CP_TIME				400				//	ms
 #define 	KEY_CPH_TIME			2000				//  200ms	³¤°´±£³Ö´¥·¢Ê±¼
 
 /**

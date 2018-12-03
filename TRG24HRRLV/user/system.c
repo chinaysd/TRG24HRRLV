@@ -322,7 +322,7 @@ void timer0() interrupt 1
      App_Mass_Cnt1s = 0;
      Mass_Cnt30Min ++;      
   }
-  if(Mass_Cnt30Min > 1800)
+  if(Mass_Cnt30Min > 3600)
   {
      Mass_Cnt30Min = 0; 
      App_Mass_Cnt1s = 0;     
@@ -341,7 +341,7 @@ void timer0() interrupt 1
      App_Heat_Cnt1s = 0; 
      Heat_Cnt30Min ++;
   }
-  if(Heat_Cnt30Min > 1800)
+  if(Heat_Cnt30Min > 3600)
   {
      App_Heat_Cnt1s = 0; 
      Heat_Cnt30Min  = 0;
