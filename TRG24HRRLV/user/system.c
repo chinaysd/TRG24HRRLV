@@ -36,6 +36,7 @@ void Key_Handle(unsigned char Get_Key)
            Rev_Data_Handle();
            if(!App_Flag)
            {
+              App_Flag = 1;
               Data = STOP;  
            }
            Mass_Flag     = 0;
@@ -160,6 +161,7 @@ void Key_Handle(unsigned char Get_Key)
            Rev_Data_Handle();
            if(!App_Flag)
            {
+              App_Flag = 1;
               Data = STOP;  
            }
            Mass_Flag     = 0;
@@ -322,15 +324,6 @@ void timer0() interrupt 1
      App_Mass_Cnt1s = 0;
      Mass_Cnt30Min ++;      
   }
-  if(Mass_Cnt30Min > 3600)
-  {
-     Mass_Cnt30Min = 0; 
-     App_Mass_Cnt1s = 0;     
-     Mass_Cnt30Min_Flag = False;
-     Data = MASS_CLOSE;  
-     LED2_SET(0);
-     Mass_Cnt = 0;
-  }
   /**************************发热布定时关闭************************************/
   if(Heat_Cnt30Min_Flag)
   {
@@ -341,16 +334,26 @@ void timer0() interrupt 1
      App_Heat_Cnt1s = 0; 
      Heat_Cnt30Min ++;
   }
-  if(Heat_Cnt30Min > 3600)
+  if(Heat_Cnt30Min > 60/*3600*/)
   {
      App_Heat_Cnt1s = 0; 
      Heat_Cnt30Min  = 0;
      Heat_Cnt30Min_Flag = False;
+	 App_Flag = 1;
      Data = HEAT_OFF;
      LED1_SET(0); 
      Heat_Cnt = 0;
   }
-  
+  if(Mass_Cnt30Min > 120/*3600*/)
+  {
+     Mass_Cnt30Min = 0; 
+     App_Mass_Cnt1s = 0;     
+     Mass_Cnt30Min_Flag = False;
+	 App_Flag = 1;
+     Data = MASS_CLOSE;  
+     LED2_SET(0);
+     Mass_Cnt = 0;
+  }
 }
 
 void timer1() interrupt 3

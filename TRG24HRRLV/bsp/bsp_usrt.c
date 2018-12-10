@@ -149,6 +149,7 @@ void Rev_Data_Handle(void)
             case COCO_Stop:                         //停止
                               Data = STOP;
                               App_Flag = 1;
+							  
                               break;         
             case COCO_Recline:                        //座椅打开
                               Data = OPEN;
@@ -220,6 +221,7 @@ void Rev_Data_Handle(void)
                                   LED2_SET(1);
                                   App_Flag = 1;
                                   Heat_Cnt = 1;
+								  
                               }
                               else
                               {
@@ -230,6 +232,7 @@ void Rev_Data_Handle(void)
                                   LED1_SET(1);
                                   App_Flag = 1;
                                   Heat_Cnt = 1;
+								  
                               }
                               break;
             case COCO_Heat_Off:                      //发热布关闭
@@ -240,6 +243,11 @@ void Rev_Data_Handle(void)
                                  LED2_SET(0);
                                  App_Flag = 1;
                                  Heat_Cnt = 1; 
+								 #if 0
+								 Mass_Flag     = 0;
+						         Heat_Flag     = 0;
+						         Foot_Led_Flag = 0;
+								 #endif
                               }
                               else
                               {

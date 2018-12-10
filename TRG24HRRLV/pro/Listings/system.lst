@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   SYSTEM                                                            12/05/2018 17:19:06 PAGE 1   
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/10/2018 15:44:55 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE SYSTEM
@@ -49,63 +49,64 @@ line level    source
   36   3                 Rev_Data_Handle();
   37   3                 if(!App_Flag)
   38   3                 {
-  39   4                    Data = STOP;  
-  40   4                 }
-  41   3                 Mass_Flag     = 0;
-  42   3                 Heat_Flag     = 0;
-  43   3                 Foot_Led_Flag = 0;
-  44   3              }
-  45   2              else if(Get_Key == MSG_KEY1_LONGPRESS)//K7
-  46   2              {
-  47   3                 App_Flag  = 0;
-  48   3                 Data = HEAD_UP;        
-  49   3              }
-  50   2              else if(Get_Key == MSG_KEY2_LONGPRESS)//K5
-  51   2              {
-C51 COMPILER V9.59.0.0   SYSTEM                                                            12/05/2018 17:19:06 PAGE 2   
+  39   4                    App_Flag = 1;
+  40   4                    Data = STOP;  
+  41   4                 }
+  42   3                 Mass_Flag     = 0;
+  43   3                 Heat_Flag     = 0;
+  44   3                 Foot_Led_Flag = 0;
+  45   3              }
+  46   2              else if(Get_Key == MSG_KEY1_LONGPRESS)//K7
+  47   2              {
+  48   3                 App_Flag  = 0;
+  49   3                 Data = HEAD_UP;        
+  50   3              }
+  51   2              else if(Get_Key == MSG_KEY2_LONGPRESS)//K5
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/10/2018 15:44:55 PAGE 2   
 
-  52   3                 App_Flag  = 0;
-  53   3                 Data = HEAD_DOWN;     
-  54   3              }
-  55   2              else if(Get_Key == MSG_KEY3_LONGPRESS)//K4
-  56   2              {
-  57   3                 App_Flag  = 0;
-  58   3                 Data = CLOSE;         
-  59   3              }
-  60   2              else if(Get_Key == MSG_KEY4_LONGPRESS)//K6
-  61   2              {
-  62   3                 App_Flag  = 0;
-  63   3                 Data = OPEN;               
-  64   3              }
-  65   2              else if(Get_Key == MSG_KEY5_LONGPRESS_HD)//K1
-  66   2              {
-  67   3                 App_Flag  = 0;
-  68   3                 Data = HOME_POSITION;         
-  69   3              }
-  70   2              else if(Get_Key == MSG_KEY6_PRESS)//K2
-  71   2              {
-  72   3                 
-  73   3                  if(!Mass_Flag)
-  74   3                  {
-  75   4                     App_Flag  = 1;
-  76   4                     Mass_Flag = 1;
-  77   4                     ++ Mass_Cnt;
-  78   4                     if(Mass_Cnt & 0x01)
-  79   4                     {
-  80   5                        Mass_Cnt30Min_Flag = True;
-  81   5                        Mass_Cnt30Min = 0;          //计数清0
-  82   5                        App_Mass_Cnt1s = 0;         //计数清0
-  83   5                        Data = MASS_OPEN; 
-  84   5                        LED1_SET(0);                  
-  85   5                     }   
-  86   4                     else
-  87   4                     {
-  88   5                        Mass_Cnt30Min_Flag = False;
-  89   5                        Data = MASS_CLOSE;  
-  90   5                        LED1_SET(0);                
-  91   5                     }               
-  92   4                  } 
-  93   3                   #if 0
+  52   2              {
+  53   3                 App_Flag  = 0;
+  54   3                 Data = HEAD_DOWN;     
+  55   3              }
+  56   2              else if(Get_Key == MSG_KEY3_LONGPRESS)//K4
+  57   2              {
+  58   3                 App_Flag  = 0;
+  59   3                 Data = CLOSE;         
+  60   3              }
+  61   2              else if(Get_Key == MSG_KEY4_LONGPRESS)//K6
+  62   2              {
+  63   3                 App_Flag  = 0;
+  64   3                 Data = OPEN;               
+  65   3              }
+  66   2              else if(Get_Key == MSG_KEY5_LONGPRESS_HD)//K1
+  67   2              {
+  68   3                 App_Flag  = 0;
+  69   3                 Data = HOME_POSITION;         
+  70   3              }
+  71   2              else if(Get_Key == MSG_KEY6_PRESS)//K2
+  72   2              {
+  73   3                 
+  74   3                  if(!Mass_Flag)
+  75   3                  {
+  76   4                     App_Flag  = 1;
+  77   4                     Mass_Flag = 1;
+  78   4                     ++ Mass_Cnt;
+  79   4                     if(Mass_Cnt & 0x01)
+  80   4                     {
+  81   5                        Mass_Cnt30Min_Flag = True;
+  82   5                        Mass_Cnt30Min = 0;          //计数清0
+  83   5                        App_Mass_Cnt1s = 0;         //计数清0
+  84   5                        Data = MASS_OPEN; 
+  85   5                        LED1_SET(0);                  
+  86   5                     }   
+  87   4                     else
+  88   4                     {
+  89   5                        Mass_Cnt30Min_Flag = False;
+  90   5                        Data = MASS_CLOSE;  
+  91   5                        LED1_SET(0);                
+  92   5                     }               
+  93   4                  } 
+  94   3                   #if 0
                           if(!Foot_Led_Flag)
                           {
                              App_Flag  = 1;
@@ -121,146 +122,147 @@ line level    source
                              }
                           } 
                           #endif             
- 109   3              }
- 110   2              else if(Get_Key == MSG_KEY7_PRESS)//K3
- 111   2              {
- 112   3                 if(!Heat_Flag)
- 113   3                 {
-C51 COMPILER V9.59.0.0   SYSTEM                                                            12/05/2018 17:19:06 PAGE 3   
+ 110   3              }
+ 111   2              else if(Get_Key == MSG_KEY7_PRESS)//K3
+ 112   2              {
+ 113   3                 if(!Heat_Flag)
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/10/2018 15:44:55 PAGE 3   
 
- 114   4                     App_Flag  = 1;
- 115   4                     Heat_Flag = 1;
- 116   4                     ++ Heat_Cnt;
- 117   4                     if(Heat_Cnt & 0x01)
- 118   4                     {
- 119   5                       App_Heat_Cnt1s = 0; 
- 120   5                       Heat_Cnt30Min  = 0;
- 121   5                       Heat_Cnt30Min_Flag = True;
- 122   5                       Data = HEAT_ON;
- 123   5                       LED2_SET(1);               
- 124   5                     }
- 125   4                     else
- 126   4                     {
- 127   5                       Heat_Cnt30Min_Flag = False;  
- 128   5                       Data = HEAT_OFF;
- 129   5                       LED2_SET(0); 
- 130   5                     }
- 131   4                 }            
- 132   3              }
- 133   2              #if 1
- 134   2              else if(Get_Key == MSG_KEY5_SHORT_PRESS)
- 135   2              {
- 136   3                  if(!Foot_Led_Flag)
- 137   3                  {
- 138   4                     App_Flag  = 1;
- 139   4                     Foot_Led_Flag = 1;
- 140   4                     ++ Foot_Led_Cnt;
- 141   4                     if(Foot_Led_Cnt & 0x01)
- 142   4                     {
- 143   5                        Data = FOOT_LIGHT_OPEN; 
- 144   5                     }
- 145   4                     else 
- 146   4                     {
- 147   5                        Data = FOOT_LIGHT_CLOSE; 
- 148   5                     }
- 149   4                  }
- 150   3              }
- 151   2              #endif
- 152   2          }        
- 153   1          /*****************************************************************************************************
+ 114   3                 {
+ 115   4                     App_Flag  = 1;
+ 116   4                     Heat_Flag = 1;
+ 117   4                     ++ Heat_Cnt;
+ 118   4                     if(Heat_Cnt & 0x01)
+ 119   4                     {
+ 120   5                       App_Heat_Cnt1s = 0; 
+ 121   5                       Heat_Cnt30Min  = 0;
+ 122   5                       Heat_Cnt30Min_Flag = True;
+ 123   5                       Data = HEAT_ON;
+ 124   5                       LED2_SET(1);               
+ 125   5                     }
+ 126   4                     else
+ 127   4                     {
+ 128   5                       Heat_Cnt30Min_Flag = False;  
+ 129   5                       Data = HEAT_OFF;
+ 130   5                       LED2_SET(0); 
+ 131   5                     }
+ 132   4                 }            
+ 133   3              }
+ 134   2              #if 1
+ 135   2              else if(Get_Key == MSG_KEY5_SHORT_PRESS)
+ 136   2              {
+ 137   3                  if(!Foot_Led_Flag)
+ 138   3                  {
+ 139   4                     App_Flag  = 1;
+ 140   4                     Foot_Led_Flag = 1;
+ 141   4                     ++ Foot_Led_Cnt;
+ 142   4                     if(Foot_Led_Cnt & 0x01)
+ 143   4                     {
+ 144   5                        Data = FOOT_LIGHT_OPEN; 
+ 145   5                     }
+ 146   4                     else 
+ 147   4                     {
+ 148   5                        Data = FOOT_LIGHT_CLOSE; 
+ 149   5                     }
+ 150   4                  }
+ 151   3              }
+ 152   2              #endif
+ 153   2          }        
+ 154   1          /*****************************************************************************************************
              -*************************************/
- 154   1          /**************************************************************三推，脚灯/复位按键复用****************
+ 155   1          /**************************************************************三推，脚灯/复位按键复用****************
              -************************************/ 
- 155   1          /*****************************************************************************************************
+ 156   1          /*****************************************************************************************************
              -*************************************/ 
- 156   1          else
- 157   1          {
- 158   2              if(Get_Key == MSG_KEY_NONE)
- 159   2              {
- 160   3                 Rev_Data_Handle();
- 161   3                 if(!App_Flag)
- 162   3                 {
- 163   4                    Data = STOP;  
- 164   4                 }
- 165   3                 Mass_Flag     = 0;
- 166   3                 Heat_Flag     = 0;
- 167   3                 Foot_Led_Flag = 0;
- 168   3              }
- 169   2              else if(Get_Key == MSG_KEY1_LONGPRESS)//K7
- 170   2              {
- 171   3                 App_Flag  = 0;
- 172   3                 Data = HEAD_DOWN;        
-C51 COMPILER V9.59.0.0   SYSTEM                                                            12/05/2018 17:19:06 PAGE 4   
+ 157   1          else
+ 158   1          {
+ 159   2              if(Get_Key == MSG_KEY_NONE)
+ 160   2              {
+ 161   3                 Rev_Data_Handle();
+ 162   3                 if(!App_Flag)
+ 163   3                 {
+ 164   4                    App_Flag = 1;
+ 165   4                    Data = STOP;  
+ 166   4                 }
+ 167   3                 Mass_Flag     = 0;
+ 168   3                 Heat_Flag     = 0;
+ 169   3                 Foot_Led_Flag = 0;
+ 170   3              }
+ 171   2              else if(Get_Key == MSG_KEY1_LONGPRESS)//K7
+ 172   2              {
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/10/2018 15:44:55 PAGE 4   
 
- 173   3              }
- 174   2              else if(Get_Key == MSG_KEY2_LONGPRESS)//K5
- 175   2              {
- 176   3                 App_Flag  = 0;
- 177   3                 Data = HEAD_UP;     
- 178   3              }
- 179   2              else if(Get_Key == MSG_KEY3_LONGPRESS)//K4
- 180   2              {
- 181   3                 App_Flag  = 0;
- 182   3                 Data = OPEN;         
- 183   3              }
- 184   2              else if(Get_Key == MSG_KEY4_LONGPRESS)//K6
- 185   2              {
- 186   3                 App_Flag  = 0;
- 187   3                 Data = CLOSE;               
- 188   3              }
- 189   2              else if(Get_Key == MSG_KEY5_LONGPRESS_HD)//K1
- 190   2              {
- 191   3                 App_Flag  = 0;
- 192   3                 Data = HOME_POSITION;         
- 193   3              }
- 194   2              else if(Get_Key == MSG_KEY6_PRESS)//K2
- 195   2              {
- 196   3                 if(!Heat_Flag)
- 197   3                 {
- 198   4                     App_Flag  = 1;
- 199   4                     Heat_Flag = 1;
- 200   4                     ++ Heat_Cnt;
- 201   4                     if(Heat_Cnt & 0x01)
- 202   4                     {
- 203   5                       App_Heat_Cnt1s = 0; 
- 204   5                       Heat_Cnt30Min  = 0;
- 205   5                       Heat_Cnt30Min_Flag = True;
- 206   5                       Data = HEAT_ON;
- 207   5                       LED1_SET(1);               
- 208   5                     }
- 209   4                     else
- 210   4                     {
- 211   5                       Heat_Cnt30Min_Flag = False;  
- 212   5                       Data = HEAT_OFF;
- 213   5                       LED1_SET(0); 
- 214   5                     }
- 215   4                 }             
- 216   3              }
- 217   2              else if(Get_Key == MSG_KEY7_PRESS)//K3
- 218   2              {
- 219   3                 if(!Mass_Flag)
- 220   3                  {
- 221   4                     App_Flag  = 1;
- 222   4                     Mass_Flag = 1;
- 223   4                     ++ Mass_Cnt;
- 224   4                     if(Mass_Cnt & 0x01)
- 225   4                     {
- 226   5                        Mass_Cnt30Min_Flag = True;
- 227   5                        Mass_Cnt30Min = 0;          //计数清0
- 228   5                        App_Mass_Cnt1s = 0;         //计数清0
- 229   5                        Data = MASS_OPEN; 
- 230   5                        LED2_SET(0);                  
- 231   5                     }   
- 232   4                     else
- 233   4                     {
- 234   5                        Mass_Cnt30Min_Flag = False;
-C51 COMPILER V9.59.0.0   SYSTEM                                                            12/05/2018 17:19:06 PAGE 5   
+ 173   3                 App_Flag  = 0;
+ 174   3                 Data = HEAD_DOWN;        
+ 175   3              }
+ 176   2              else if(Get_Key == MSG_KEY2_LONGPRESS)//K5
+ 177   2              {
+ 178   3                 App_Flag  = 0;
+ 179   3                 Data = HEAD_UP;     
+ 180   3              }
+ 181   2              else if(Get_Key == MSG_KEY3_LONGPRESS)//K4
+ 182   2              {
+ 183   3                 App_Flag  = 0;
+ 184   3                 Data = OPEN;         
+ 185   3              }
+ 186   2              else if(Get_Key == MSG_KEY4_LONGPRESS)//K6
+ 187   2              {
+ 188   3                 App_Flag  = 0;
+ 189   3                 Data = CLOSE;               
+ 190   3              }
+ 191   2              else if(Get_Key == MSG_KEY5_LONGPRESS_HD)//K1
+ 192   2              {
+ 193   3                 App_Flag  = 0;
+ 194   3                 Data = HOME_POSITION;         
+ 195   3              }
+ 196   2              else if(Get_Key == MSG_KEY6_PRESS)//K2
+ 197   2              {
+ 198   3                 if(!Heat_Flag)
+ 199   3                 {
+ 200   4                     App_Flag  = 1;
+ 201   4                     Heat_Flag = 1;
+ 202   4                     ++ Heat_Cnt;
+ 203   4                     if(Heat_Cnt & 0x01)
+ 204   4                     {
+ 205   5                       App_Heat_Cnt1s = 0; 
+ 206   5                       Heat_Cnt30Min  = 0;
+ 207   5                       Heat_Cnt30Min_Flag = True;
+ 208   5                       Data = HEAT_ON;
+ 209   5                       LED1_SET(1);               
+ 210   5                     }
+ 211   4                     else
+ 212   4                     {
+ 213   5                       Heat_Cnt30Min_Flag = False;  
+ 214   5                       Data = HEAT_OFF;
+ 215   5                       LED1_SET(0); 
+ 216   5                     }
+ 217   4                 }             
+ 218   3              }
+ 219   2              else if(Get_Key == MSG_KEY7_PRESS)//K3
+ 220   2              {
+ 221   3                 if(!Mass_Flag)
+ 222   3                  {
+ 223   4                     App_Flag  = 1;
+ 224   4                     Mass_Flag = 1;
+ 225   4                     ++ Mass_Cnt;
+ 226   4                     if(Mass_Cnt & 0x01)
+ 227   4                     {
+ 228   5                        Mass_Cnt30Min_Flag = True;
+ 229   5                        Mass_Cnt30Min = 0;          //计数清0
+ 230   5                        App_Mass_Cnt1s = 0;         //计数清0
+ 231   5                        Data = MASS_OPEN; 
+ 232   5                        LED2_SET(0);                  
+ 233   5                     }   
+ 234   4                     else
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/10/2018 15:44:55 PAGE 5   
 
- 235   5                        Data = MASS_CLOSE;  
- 236   5                        LED2_SET(0);                
- 237   5                     }               
- 238   4                  } 
- 239   3                   #if 0
+ 235   4                     {
+ 236   5                        Mass_Cnt30Min_Flag = False;
+ 237   5                        Data = MASS_CLOSE;  
+ 238   5                        LED2_SET(0);                
+ 239   5                     }               
+ 240   4                  } 
+ 241   3                   #if 0
                           if(!Foot_Led_Flag)
                           {
                              App_Flag  = 1;
@@ -276,127 +278,128 @@ line level    source
                              }
                           } 
                           #endif            
- 255   3              }
- 256   2              else if(Get_Key == MSG_KEY5_SHORT_PRESS)
- 257   2              {
- 258   3                  if(!Foot_Led_Flag)
- 259   3                  {
- 260   4                     App_Flag  = 1;
- 261   4                     Foot_Led_Flag = 1;
- 262   4                     ++ Foot_Led_Cnt;
- 263   4                     if(Foot_Led_Cnt & 0x01)
- 264   4                     {
- 265   5                        Data = FOOT_LIGHT_OPEN; 
- 266   5                     }
- 267   4                     else 
- 268   4                     {
- 269   5                        Data = FOOT_LIGHT_CLOSE; 
- 270   5                     }
- 271   4                  }
- 272   3              }
- 273   2          }
- 274   1      }
- 275          
- 276          
- 277          void System_Init(void)
- 278          {
- 279   1        TimeOutDet_Init();
- 280   1        Timer_Init();
- 281   1        Uart_Init(9600);
- 282   1        Led_App_Handle(LED_NUM);
- 283   1        Test_Init();
- 284   1        Key_Init();
- 285   1        Key_Register(Key_Handle);
- 286   1        WDTCON |= 0X40;
- 287   1        EA = 1;
- 288   1      }
- 289          
- 290          void System_Handle(void)
- 291          {
- 292   1         WDTCON |= 0X40;
- 293   1         Key_Poll();
- 294   1         if(TimeOutDet_Check(&TimeOut_Para[0]))
- 295   1         {
- 296   2            TimeOut_Record(&TimeOut_Para[0],OnLine_Time); 
-C51 COMPILER V9.59.0.0   SYSTEM                                                            12/05/2018 17:19:06 PAGE 6   
+ 257   3              }
+ 258   2              else if(Get_Key == MSG_KEY5_SHORT_PRESS)
+ 259   2              {
+ 260   3                  if(!Foot_Led_Flag)
+ 261   3                  {
+ 262   4                     App_Flag  = 1;
+ 263   4                     Foot_Led_Flag = 1;
+ 264   4                     ++ Foot_Led_Cnt;
+ 265   4                     if(Foot_Led_Cnt & 0x01)
+ 266   4                     {
+ 267   5                        Data = FOOT_LIGHT_OPEN; 
+ 268   5                     }
+ 269   4                     else 
+ 270   4                     {
+ 271   5                        Data = FOOT_LIGHT_CLOSE; 
+ 272   5                     }
+ 273   4                  }
+ 274   3              }
+ 275   2          }
+ 276   1      }
+ 277          
+ 278          
+ 279          void System_Init(void)
+ 280          {
+ 281   1        TimeOutDet_Init();
+ 282   1        Timer_Init();
+ 283   1        Uart_Init(9600);
+ 284   1        Led_App_Handle(LED_NUM);
+ 285   1        Test_Init();
+ 286   1        Key_Init();
+ 287   1        Key_Register(Key_Handle);
+ 288   1        WDTCON |= 0X40;
+ 289   1        EA = 1;
+ 290   1      }
+ 291          
+ 292          void System_Handle(void)
+ 293          {
+ 294   1         WDTCON |= 0X40;
+ 295   1         Key_Poll();
+ 296   1         if(TimeOutDet_Check(&TimeOut_Para[0]))
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/10/2018 15:44:55 PAGE 6   
 
- 297   2            Protocol_Send(SEND_ADDR,SEND_ID,Data);         
- 298   2         }
- 299   1      }
- 300          
- 301          /**************************************************
- 302          *函数名称：void timer0/1/2() interrupt 1/3/5
- 303          *函数功能：定时器中断产生方波
- 304          *入口参数：void
- 305          *出口参数：void
- 306          **************************************************/
- 307          void timer0() interrupt 1
- 308          {
- 309   1        extern unsigned int Mass_Cnt;
- 310   1        extern unsigned int Heat_Cnt;
- 311   1        extern unsigned int Foot_Led_Cnt;
- 312   1        TL0 = (65536 - 6000)%256;
- 313   1        TH0 = (65536 - 6000)/256;
- 314   1        TimeOutDet_DecHandle();
- 315   1        /***********************马达定时关闭*************************/
- 316   1        if(Mass_Cnt30Min_Flag)
- 317   1        {
- 318   2           App_Mass_Cnt1s ++; 
- 319   2        }      
- 320   1        if(App_Mass_Cnt1s > 1000)
- 321   1        {
- 322   2           App_Mass_Cnt1s = 0;
- 323   2           Mass_Cnt30Min ++;      
- 324   2        }
- 325   1        if(Mass_Cnt30Min > 3600)
- 326   1        {
- 327   2           Mass_Cnt30Min = 0; 
- 328   2           App_Mass_Cnt1s = 0;     
- 329   2           Mass_Cnt30Min_Flag = False;
- 330   2           Data = MASS_CLOSE;  
- 331   2           LED2_SET(0);
- 332   2           Mass_Cnt = 0;
- 333   2        }
- 334   1        /**************************发热布定时关闭************************************/
- 335   1        if(Heat_Cnt30Min_Flag)
- 336   1        {
- 337   2          App_Heat_Cnt1s ++; 
- 338   2        }
- 339   1        if(App_Heat_Cnt1s > 1000)
- 340   1        {
- 341   2           App_Heat_Cnt1s = 0; 
- 342   2           Heat_Cnt30Min ++;
- 343   2        }
- 344   1        if(Heat_Cnt30Min > 3600)
- 345   1        {
- 346   2           App_Heat_Cnt1s = 0; 
- 347   2           Heat_Cnt30Min  = 0;
- 348   2           Heat_Cnt30Min_Flag = False;
- 349   2           Data = HEAT_OFF;
- 350   2           LED1_SET(0); 
- 351   2           Heat_Cnt = 0;
- 352   2        }
- 353   1        
- 354   1      }
- 355          
- 356          void timer1() interrupt 3
- 357          {
- 358   1      
-C51 COMPILER V9.59.0.0   SYSTEM                                                            12/05/2018 17:19:06 PAGE 7   
+ 297   1         {
+ 298   2            TimeOut_Record(&TimeOut_Para[0],OnLine_Time); 
+ 299   2            Protocol_Send(SEND_ADDR,SEND_ID,Data);         
+ 300   2         }
+ 301   1      }
+ 302          
+ 303          /**************************************************
+ 304          *函数名称：void timer0/1/2() interrupt 1/3/5
+ 305          *函数功能：定时器中断产生方波
+ 306          *入口参数：void
+ 307          *出口参数：void
+ 308          **************************************************/
+ 309          void timer0() interrupt 1
+ 310          {
+ 311   1        extern unsigned int Mass_Cnt;
+ 312   1        extern unsigned int Heat_Cnt;
+ 313   1        extern unsigned int Foot_Led_Cnt;
+ 314   1        TL0 = (65536 - 6000)%256;
+ 315   1        TH0 = (65536 - 6000)/256;
+ 316   1        TimeOutDet_DecHandle();
+ 317   1        /***********************马达定时关闭*************************/
+ 318   1        if(Mass_Cnt30Min_Flag)
+ 319   1        {
+ 320   2           App_Mass_Cnt1s ++; 
+ 321   2        }      
+ 322   1        if(App_Mass_Cnt1s > 1000)
+ 323   1        {
+ 324   2           App_Mass_Cnt1s = 0;
+ 325   2           Mass_Cnt30Min ++;      
+ 326   2        }
+ 327   1        /**************************发热布定时关闭************************************/
+ 328   1        if(Heat_Cnt30Min_Flag)
+ 329   1        {
+ 330   2          App_Heat_Cnt1s ++; 
+ 331   2        }
+ 332   1        if(App_Heat_Cnt1s > 1000)
+ 333   1        {
+ 334   2           App_Heat_Cnt1s = 0; 
+ 335   2           Heat_Cnt30Min ++;
+ 336   2        }
+ 337   1        if(Heat_Cnt30Min > 60/*3600*/)
+ 338   1        {
+ 339   2           App_Heat_Cnt1s = 0; 
+ 340   2           Heat_Cnt30Min  = 0;
+ 341   2           Heat_Cnt30Min_Flag = False;
+ 342   2               App_Flag = 1;
+ 343   2           Data = HEAT_OFF;
+ 344   2           LED1_SET(0); 
+ 345   2           Heat_Cnt = 0;
+ 346   2        }
+ 347   1        if(Mass_Cnt30Min > 120/*3600*/)
+ 348   1        {
+ 349   2           Mass_Cnt30Min = 0; 
+ 350   2           App_Mass_Cnt1s = 0;     
+ 351   2           Mass_Cnt30Min_Flag = False;
+ 352   2               App_Flag = 1;
+ 353   2           Data = MASS_CLOSE;  
+ 354   2           LED2_SET(0);
+ 355   2           Mass_Cnt = 0;
+ 356   2        }
+ 357   1      }
+ 358          
+C51 COMPILER V9.59.0.0   SYSTEM                                                            12/10/2018 15:44:55 PAGE 7   
 
- 359   1      }
- 360          
- 361          void Timer2Int(void) interrupt 5
- 362          {               
- 363   1              TF2 = 0;   //溢出清零
- 364   1       
- 365   1      }
- 366          
- 367          
+ 359          void timer1() interrupt 3
+ 360          {
+ 361   1      
+ 362   1      }
+ 363          
+ 364          void Timer2Int(void) interrupt 5
+ 365          {               
+ 366   1              TF2 = 0;   //溢出清零
+ 367   1       
+ 368   1      }
+ 369          
+ 370          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    758    ----
+   CODE SIZE        =    770    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
