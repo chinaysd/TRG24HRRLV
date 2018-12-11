@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 15:31:31 PAGE 1   
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 19:48:14 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE BSP_USRT
@@ -62,7 +62,7 @@ line level    source
   52          
   53          unsigned char Send_Data(PROTOCOL_TX *p)
   54          {
-C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 15:31:31 PAGE 2   
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 19:48:14 PAGE 2   
 
   55   1          static unsigned char i;
   56   1          for(i = 0; i < BUF_SIZE; i ++)
@@ -126,7 +126,7 @@ line level    source
  113   3              }
  114   2              else 
  115   2              {
-C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 15:31:31 PAGE 3   
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 19:48:14 PAGE 3   
 
  116   3                  if(Rev_Num == 5)
  117   3                  {
@@ -190,7 +190,7 @@ line level    source
  174   3                  case COCO_Lumbar_Down:                   //腰部收回
  175   3                                    Data = LARBUM_DOWN; 
  176   3                                    App_Flag = 1;
-C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 15:31:31 PAGE 4   
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 19:48:14 PAGE 4   
 
  177   3                                    break;
  178   3                  case COCO_Home_Position:                 //复位
@@ -254,7 +254,7 @@ line level    source
  236   4                                    }
  237   3                                    break;
  238   3                  case COCO_Heat_Off:                      //发热布关闭
-C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 15:31:31 PAGE 5   
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 19:48:14 PAGE 5   
 
  239   3                                    if(TEST_PIN == 1)
  240   3                                    {
@@ -318,7 +318,7 @@ line level    source
  298   4                                       App_Flag = 1;
  299   4                                       Mass_Cnt = 1;   
  300   4                                    }
-C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 15:31:31 PAGE 6   
+C51 COMPILER V9.59.0.0   BSP_USRT                                                          12/10/2018 19:48:14 PAGE 6   
 
  301   3                                    
  302   3                                    break;
